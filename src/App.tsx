@@ -10,6 +10,8 @@ import DashboardLayout from "./components/layout/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
 import FeeManagement from "./pages/FeeManagement";
 import ExpenseTracking from "./pages/ExpenseTracking";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
@@ -25,8 +27,8 @@ const App = () => (
           <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
           <Route path="/fee-management" element={<DashboardLayout><FeeManagement /></DashboardLayout>} />
           <Route path="/expense-tracking" element={<DashboardLayout><ExpenseTracking /></DashboardLayout>} />
-          <Route path="/profile" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
-          <Route path="/settings" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
+          <Route path="/profile" element={<DashboardLayout><Profile /></DashboardLayout>} />
+          <Route path="/settings" element={<DashboardLayout><Settings /></DashboardLayout>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
