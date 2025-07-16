@@ -451,9 +451,13 @@ export default function FeeManagement() {
                         </Button>
                       )}
                       <Button
-                        variant="outline"
+                        variant="destructive"
                         size="sm"
-                        onClick={() => handleDeleteFee(fee.id)}
+                        onClick={() => {
+                          if (window.confirm('Are you sure you want to delete this fee record?')) {
+                            handleDeleteFee(fee.id);
+                          }
+                        }}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

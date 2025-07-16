@@ -260,17 +260,18 @@ export default function Profile() {
                   className="hidden"
                   id="image-upload"
                 />
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  asChild
-                  disabled={uploading}
-                >
-                  <label htmlFor="image-upload" className="cursor-pointer">
+                <label htmlFor="image-upload">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    disabled={uploading}
+                    className="cursor-pointer"
+                    type="button"
+                  >
                     <Camera className="h-4 w-4 mr-2" />
                     {uploading ? "Uploading..." : "Upload Photo"}
-                  </label>
-                </Button>
+                  </Button>
+                </label>
               </>
             )}
           </CardContent>
