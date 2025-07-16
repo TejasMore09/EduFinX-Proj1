@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, CreditCard, AlertCircle, CheckCircle, Clock } from "lucide-react";
+import { Plus, CreditCard, AlertCircle, CheckCircle, Clock, Trash2 } from "lucide-react";
 
 interface Fee {
   id: string;
@@ -226,10 +226,35 @@ export default function FeeManagement() {
     }
   };
 
+  const handleDeleteFee = async (feeId: string) => {
+    try {
+      const { error } = await supabase
+        .from("fees")
+        .delete()
+        .eq("id", feeId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Fee record deleted successfully.",
+      });
+
+      loadFees();
+    } catch (error) {
+      console.error("Error deleting fee:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete fee record.",
+        variant: "destructive",
+      });
+    }
+  };
+
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("en-IN", {
       style: "currency",
-      currency: "USD",
+      currency: "INR",
     }).format(amount);
   };
 
@@ -407,23 +432,32 @@ export default function FeeManagement() {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {fee.status !== "paid" && (
+                    <div className="flex gap-2">
+                      {fee.status !== "paid" && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            setSelectedFee(fee);
+                            setPayment({
+                              amount: (fee.amount - fee.paid_amount).toString(),
+                              payment_method: "",
+                              notes: "",
+                            });
+                            setIsPaymentDialogOpen(true);
+                          }}
+                        >
+                          Pay
+                        </Button>
+                      )}
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => {
-                          setSelectedFee(fee);
-                          setPayment({
-                            amount: (fee.amount - fee.paid_amount).toString(),
-                            payment_method: "",
-                            notes: "",
-                          });
-                          setIsPaymentDialogOpen(true);
-                        }}
+                        onClick={() => handleDeleteFee(fee.id)}
                       >
-                        Pay
+                        <Trash2 className="h-4 w-4" />
                       </Button>
-                    )}
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
