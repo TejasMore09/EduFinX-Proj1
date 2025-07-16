@@ -11,11 +11,13 @@ import { Camera, Save, User } from "lucide-react";
 
 interface Profile {
   id: string;
+  user_id: string;
   full_name: string;
   email: string;
   phone?: string;
   address?: string;
   role: string;
+  profile_image_url?: string;
 }
 
 interface StudentRecord {
@@ -32,6 +34,7 @@ export default function Profile() {
   const [studentRecord, setStudentRecord] = useState<StudentRecord | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
   const { toast } = useToast();
 
   const [formData, setFormData] = useState({
@@ -162,6 +165,60 @@ export default function Profile() {
     }
   };
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      setUploading(true);
+      
+      if (!event.target.files || event.target.files.length === 0) {
+        throw new Error('You must select an image to upload.');
+      }
+
+      const user = (await supabase.auth.getUser()).data.user;
+      if (!user) throw new Error('No user found');
+
+      const file = event.target.files[0];
+      const fileExt = file.name.split('.').pop();
+      const filePath = `${user.id}/profile.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('profile-images')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('profile-images')
+        .getPublicUrl(filePath);
+
+      // Update profile with new image URL
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ profile_image_url: publicUrl })
+        .eq('user_id', user.id);
+
+      if (updateError) throw updateError;
+
+      setProfile(prev => prev ? { ...prev, profile_image_url: publicUrl } : null);
+      
+      toast({
+        title: "Success",
+        description: "Profile image updated successfully.",
+      });
+
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast({
+        title: "Error",
+        description: "Failed to upload image.",
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
   if (loading) {
     return <div className="flex items-center justify-center h-96">Loading...</div>;
   }
@@ -186,16 +243,35 @@ export default function Profile() {
           </CardHeader>
           <CardContent className="flex flex-col items-center space-y-4">
             <Avatar className="h-24 w-24">
-              <AvatarImage src="" alt="Profile" />
+              <AvatarImage 
+                src={profile?.profile_image_url || ""} 
+                alt="Profile" 
+              />
               <AvatarFallback className="text-lg">
                 <User className="h-8 w-8" />
               </AvatarFallback>
             </Avatar>
             {isEditing && (
-              <Button variant="outline" size="sm">
-                <Camera className="h-4 w-4 mr-2" />
-                Upload Photo
-              </Button>
+              <>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                  id="image-upload"
+                />
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  asChild
+                  disabled={uploading}
+                >
+                  <label htmlFor="image-upload" className="cursor-pointer">
+                    <Camera className="h-4 w-4 mr-2" />
+                    {uploading ? "Uploading..." : "Upload Photo"}
+                  </label>
+                </Button>
+              </>
             )}
           </CardContent>
         </Card>

@@ -24,7 +24,7 @@ export default function Settings() {
     showPhone: false,
   });
   const [language, setLanguage] = useState("en");
-  const [currency, setCurrency] = useState("USD");
+  const [currency, setCurrency] = useState("INR");
   const { toast } = useToast();
 
   useEffect(() => {
@@ -169,6 +169,7 @@ export default function Settings() {
                   <SelectItem value="USD">USD ($)</SelectItem>
                   <SelectItem value="EUR">EUR (€)</SelectItem>
                   <SelectItem value="GBP">GBP (£)</SelectItem>
+                  <SelectItem value="INR">INR (₹)</SelectItem>
                   <SelectItem value="JPY">JPY (¥)</SelectItem>
                 </SelectContent>
               </Select>
