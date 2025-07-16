@@ -71,7 +71,7 @@ export default function FeeManagement() {
         .from("students")
         .select("*")
         .eq("user_id", user.id)
-        .single();
+        .maybeSingle();
 
       if (student) {
         setStudentId(student.id);
@@ -96,7 +96,7 @@ export default function FeeManagement() {
         .from("students")
         .select("id")
         .eq("user_id", user.id)
-        .single();
+        .maybeSingle();
 
       if (student) {
         const { data, error } = await supabase
