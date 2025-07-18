@@ -1,73 +1,109 @@
-# Welcome to your Lovable project
+# EduFinX - Educational Finance Management System
 
-## Project info
+**Developed by Tejas and team**
 
-**URL**: https://lovable.dev/projects/b1358bfc-bcbb-4480-b8ef-e7ed9cd73338
+## Project Overview
 
-## How can I edit this code?
+EduFinX is a comprehensive educational finance management platform designed to streamline financial operations for educational institutions and students. The system provides an intuitive interface for managing fees, tracking expenses, and maintaining financial transparency in educational environments.
 
-There are several ways of editing your application.
+## Key Features
 
-**Use Lovable**
+### 🎓 Student Financial Management
+- **Fee Management**: Comprehensive fee tracking and payment management
+- **Expense Tracking**: Personal expense monitoring and categorization
+- **Budget Planning**: Smart budgeting tools for educational expenses
+- **Payment History**: Complete transaction history and records
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b1358bfc-bcbb-4480-b8ef-e7ed9cd73338) and start prompting.
+### 📊 Dashboard & Analytics
+- Real-time financial overview and insights
+- Interactive charts and financial reports
+- Budget vs. actual expense analysis
+- Payment status tracking
 
-Changes made via Lovable will be committed automatically to this repo.
+### 👤 User Management
+- Secure authentication system
+- Student profile management
+- Role-based access control
+- Profile image upload and management
 
-**Use your preferred IDE**
+### 💰 Financial Operations
+- Multiple payment method support
+- Recurring fee management
+- Expense categorization
+- Budget allocation and monitoring
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Technical Stack
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **Frontend**: React 18 + TypeScript
+- **Styling**: Tailwind CSS with custom design system
+- **UI Components**: Radix UI + shadcn/ui
+- **Backend**: Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth
+- **Storage**: Supabase Storage for file uploads
+- **Build Tool**: Vite
+- **State Management**: TanStack Query
+- **Routing**: React Router DOM
 
-Follow these steps:
+## Architecture
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+The application follows a modern, scalable architecture:
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- **Component-based Architecture**: Modular React components with TypeScript
+- **Database**: PostgreSQL with Row-Level Security (RLS) policies
+- **Real-time Updates**: Supabase real-time subscriptions
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Secure File Storage**: Profile images and receipts in Supabase Storage
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Database Schema
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Core Tables
+- `profiles` - User profile information
+- `students` - Student-specific data
+- `fees` - Fee management and tracking
+- `expenses` - Expense tracking
+- `budgets` - Budget planning and monitoring
+- `fee_categories` / `expense_categories` - Classification systems
+
+## Security Features
+
+- **Row-Level Security**: Database-level access control
+- **Authentication**: Secure user authentication via Supabase
+- **Data Privacy**: User data isolation and protection
+- **File Security**: Secure file uploads with access controls
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn package manager
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <repository-url>
+
+# Navigate to project directory
+cd edufinx
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Environment Setup
+The application uses Supabase for backend services. All configuration is handled through the integrated Supabase client.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Contributing
 
-**Use GitHub Codespaces**
+This project was developed collaboratively by Tejas and team members. Contributions should follow the established coding standards and architectural patterns.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Status
 
-## What technologies are used for this project?
+EduFinX is actively maintained and continues to evolve with new features and improvements for educational finance management.
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/b1358bfc-bcbb-4480-b8ef-e7ed9cd73338) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+*Built with ❤️ for educational institutions and students*
